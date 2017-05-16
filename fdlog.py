@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # fdlog.py Copyright Alan K Biocca (W6AKB) www.fdlog.info
 
 print "\nHigh Sierra Field Day Log Program\n"
