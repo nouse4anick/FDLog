@@ -2224,16 +2224,34 @@ class netsync:
     pkts_rcvd,fills,badauth_rcvd,send_errs = 0,0,0,0
     hostname = socket.gethostname()
     my_addr = socket.gethostbyname(hostname)                # fails on some systems
-    bc_addr = '<broadcast>'                                 # udp broadcast address
+    # linux fix below taken from Scott Hibbs' version from https://github.com/scotthibbs/FDLog_Enhanced
+    if my_addr[:3] == '127':   
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            # doesn't even have to be reachable
+            s.connect(('10.255.255.255', 0))
+            IP = s.getsockname()[0]
+        except:
+            IP = '127.0.0.1'
+        finally:
+            s.close()
+            my_addr = IP    
+            print "\n Linux Loopback fix worked ip is:  %s\n" % my_addr
+            bc_addr = re.sub(r'[0-9]+$', '255', my_addr)  # calc bcast addr
+    # moved this under the linux fix in case our linux is on 10. network - Scott Hibbs Apr/9/2017
+    elif my_addr[:3] == '10.':
+        bc_addr = '10.255.255.255'
+        netmask = '255.0.0.0'
+    # proposed fix for 172 networks that need 255.255.0.0 netmask
+    # This is untested - Scott Hibbs KD4SIR Apr/9/2017
+    elif my_addr[:3] == '172':
+        bc_addr = re.sub(r'[0-9]+$', '255', my_addr)  # calc bcast addr
+        netmask = '255.255.0.0'
+    else:
+        bc_addr = re.sub(r'[0-9]+$', '255', my_addr) # calc bcast addr
+    
     udp_skt = None
     pkts_prev = 0
-    
-##    if my_addr[:3] == '10.':
-##        bc_addr = '10.255.255.255'
-##        netmask = '255.0.0.0'
-##    else:
-##        bc_addr = re.sub(r'[0-9]+$','255',my_addr)          # calc bcast addr
-
     si = node_info()                                        # create node info object
 
 
