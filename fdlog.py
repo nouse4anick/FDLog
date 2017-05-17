@@ -37,13 +37,11 @@ Copyright by Alan Biocca (W6AKB, formerly WB6ZQZ)
 #
 # exit not clean, hangs (fixed)
 
-
 # port numbers and TCP/UDP (done)
 #
 # in the address field use 0.0.0.0:123 instead of 0.0.0.0 to denote TCP on port 123
 #   if there is no : then it is UDP on standard port
 #   if there is a : then TCP on the port following the :
-
 
 # major version history
 #   1 small c version 1984 (H89 multiuser) (Alan WB6ZQZ)
@@ -60,9 +58,7 @@ Copyright by Alan Biocca (W6AKB, formerly WB6ZQZ)
 #   minor is for protocol changes, and other significant changes
 #   note this does not affect files, fdlog.py is still the executable
 
-
 # Release Log below, Suggestion List at end of file
-
 
 # Known Bug List and Change Plan
 #
@@ -84,7 +80,6 @@ Copyright by Alan Biocca (W6AKB, formerly WB6ZQZ)
 # make short status packets have better time levels
 # have nodes with better time send short status packets, and a little more often
 # might want option flag on bells to enable/disable
-
 
 release_log = """\
 
@@ -150,7 +145,6 @@ release_log = """\
       in addition to the usual 10 second full info status broadcast
     fixed startup clock offset read from database (old bug fixed)
     makes smooth transition between modes (offset transitions at most 0.1s per second
-
 
 4-1-152f added 900 to band command
 
@@ -304,7 +298,6 @@ release_log = """\
     snap 11
 
     comment cleanup. added more notes detail.
-
 
 1.147 2009/06/20 pre fd (used on FD 2009,2010)
 
@@ -889,7 +882,6 @@ yellow and putting a short message in it. These messages and what they mean
 are detailed below. Note that it will display "NET OK" instead of a zero
 GOTA Q count.
 
-
   NO NODE    The node identification is missing. This is necessary
              to identify the database records when they are shared.
              It is recommended to set this to the callsign of the owner
@@ -955,7 +947,6 @@ The following reports are generated from keyboard commands (starting with
 .re     log summary report
 .pr     save contest entry to 'fdlog.log'
 
-
 Keyboard Input Syntax for QSOs
 
 call is
@@ -1006,7 +997,6 @@ def fingerprint():
     print "  FDLog Fingerprint",h.hexdigest()
 fingerprint()
 
-
 # Time Conversion Chart
 #000 0000 0000 0000 0000
 #000  -8   -7   -6   -5
@@ -1043,7 +1033,6 @@ fdfont  = (typeface,fontsize)                  # regular fixwidth font
 fdmfont = (typeface,fontsize+fontinterval)     # medium  fixwidth font
 fdbfont = (typeface,fontsize+fontinterval*2)   # large   fixwidth font
 
-
 # integer value utility
 
 def ival(s):
@@ -1063,8 +1052,6 @@ def getver():
     print "  FDLog version",version,"\n"
     return version
 version = getver()
-
-
 
 # feature request - built in time correction - use 'master' and offsets
 #
@@ -1227,7 +1214,6 @@ class clock_class:
         
         if abs(adj) > 0.5: print "Slewing clock",adj,"to",self.offset
 
-
     def offsetinit(self):
         self.offset = float(globDb.get('toffset',0))  # set up offset
         print "    time offset restored",self.offset
@@ -1296,8 +1282,6 @@ def exin(op):
         r = m.group(1)
     return r
 
-
-
 # sqlite database upgrade
 #
 # use sqlite as the primary journal file database
@@ -1308,7 +1292,6 @@ def exin(op):
 #
 # do db in parallel w ascii journal, ascii journal becomes a write only file
 #   some folks use this file for other purposes
-
 
 import sqlite3
 
@@ -1362,12 +1345,10 @@ class SQDB:
                                             # might want to use one fixed database, add a column for the sub-set that we're using
                                             # have a pulldown to select the particular contest/db to use
 
-
 # interesting idea for future, store sql in the journal...
 # probably a subset, but basically ready to execute sql with some encapsulation
 # for the arguments
 # OR perhaps JSON?
-
 
 # qso database class
 
@@ -1499,7 +1480,6 @@ class qsodb:
         for i in l:
             print i
 
-
 # adif specs for eqsl.org   http://www.eqsl.cc/qslcard/adifcontentspecs.cfm ver 2.27
 #
 # problems - adif digital modes and satellite modes don't fit the fd model
@@ -1571,8 +1551,6 @@ class qsodb:
             l.append("%sQSO: %-5s %-2s %-10s %4s %-13s     %-6s %-13s     %-6s"%(i.date,freq,mod,date,tim,mycall,mygrid,call,grid))
         l.sort()                    # sort data with prepended date.time
         for i in l: print i[13:]    # rm sort key date.time
-
-
 
     def filterlog(self,filt):
         "list filtered (by bandm) log in time order, nondup valid q's only"
@@ -1782,8 +1760,6 @@ class qsodb:
             if age > t.age: d[t.nod] = (t.bnd,t.msc,t.age)
         for t in d:
             print "%8s %4s %-18s %4s"%(t,d[t][0],d[t][1],d[t][2]) #t.bnd,t.msc,t.age)
-
-
 
         print
         print "  band -------- cw ----- ------- dig ----- ------- fon -----"
@@ -2000,14 +1976,8 @@ class qsodb:
                 r.append(i)
         return r
 
-
-
-
 # problem with sqlite
 # cannot use sqlite object created in a different thread
-
-
-
 
 # threads and networking section
 
@@ -2153,16 +2123,6 @@ class node_info:
 
         return r,hf,vhf,gota
 
-
-
-
-
-
-
-
-
-
-
 # new message class
 # needed for filler to work with tcp
 
@@ -2214,7 +2174,6 @@ class MESSAGE:
 ##        print h; print self.auth(m); print
         return h == self.auth(m)
 
-
 class netsync:
     "network database synchronization"
 
@@ -2253,8 +2212,6 @@ class netsync:
     udp_skt = None
     pkts_prev = 0
     si = node_info()                                        # create node info object
-
-
 
     # new tcp/udp code section
     #
@@ -2463,7 +2420,6 @@ class netsync:
                 return False
         return True
 
-
 # another interesting issue (several actually)
 #
 # fill requests
@@ -2517,7 +2473,6 @@ class netsync:
 #   this would have the advantage of avoiding explicit locks in python, allowing transactions
 #   to be used instead, if they are needed
 #     or just use objects...
-
 
     def send_msg(self,message):
         "route and send network message from a message object"
@@ -2612,9 +2567,6 @@ class netsync:
             try: s.close()
             except: pass
 
-
-
-
     # old udp code from here on
     
     def setport(self,useport):
@@ -2651,7 +2603,6 @@ class netsync:
         h,m = msg.split('\n',1)
 ##        print h; print self.auth(m); print
         return h == self.auth(m)
-
 
 # sndmsg must be taught to send tcp to remote sites
 # probably should be split for sending both udp and tcp message types
@@ -2834,9 +2785,6 @@ class netsync:
         time.sleep(4)                         # let em print
         print "Startup complete"
 
-
-
-
 class global_data:
 #global data stored in the journal
 
@@ -2953,7 +2901,6 @@ class syncmsg:
             del self.msgs[0]
         self.lock.release()
 
-
 # global functions
 
 def now():
@@ -2998,7 +2945,6 @@ def testcmd(name, rex, default):
         kbuf = ""
     return value,default != value
 
-
 # new sqlite globals database fdlog.sq3 replacing globals file
 #
 class GlobalDb:
@@ -3034,8 +2980,6 @@ class GlobalDb:
         self.sqdb.commit()
         #print "writing to globDb", name, value
         self.cache[name] = str(value)
-
-
 
 def loadglob():
     "load persistent local config to global vars from file"
@@ -3086,7 +3030,6 @@ def saveglob():
 ##                                       authk,tdwin,debug))
 ##    fd.close()
 
-
 # contest log section
 
 def getfile(fn):
@@ -3133,9 +3076,7 @@ def contestlog(pr):
     gota_call = string.upper(gd.getv('gcall'))
     if xmttrs < 2: gota_call = ""
 
-
     if pr == 0: return                          # only define variables return
-
 
     # output the entry, adif & cabrillo log file
     
@@ -3562,7 +3503,6 @@ def contestlog(pr):
     print
     print "entry and log written to file",logfile
 
-
 # band set buttons
 # this can be customized
 
@@ -3590,7 +3530,6 @@ def bandset(b):
     
 def bandoff():
     bandset('off')
-
 
 # new participant setup
 
@@ -3687,8 +3626,6 @@ class newparticipantdialog:
                                         .grid(row=3,column=1,sticky=EW,padx=3)
         Button(f2,text='Quit',font=fdbfont,command=s.quitbtn)\
                                         .grid(row=3,column=0,sticky=EW,padx=3)
-        
-
 newpart = newparticipantdialog()
 
 # property dialogs
@@ -3760,7 +3697,6 @@ def noddiag():
 
 ##def authdiag():
 ##    pdiag('AuthKey',authk,r'.{3,12}$',12)
-
 
 # view textdocs
 
@@ -3888,18 +3824,10 @@ def updateqct():
     if node == '': t = "NO NODE"
     if t: bandb['GOTAq'].configure(text=t,background='yellow')
 
-
-
-
 # band button problems on mac xx
 # buttons too small
 # local band button is also yellow (backgrounds on buttons problematic on mac)
-
-
-
 #print os.name
-
-
 
 def bandbuttons(w):
     "create band buttons"
@@ -3938,7 +3866,6 @@ def bandbuttons(w):
         bandb[i].grid(row=j,column=a,sticky=NSEW)
     w.grid_columnconfigure(a,weight=1)
 
-
 def rndlet():
     return chr(random.randrange(ord('a'),ord('z')+1))
 
@@ -3966,10 +3893,7 @@ def testqgen(n):
 ##    print "new file",logf
 # the above is hard, and not correct. have to restart network thread..
 # solve this for now by restarting the program..
-
-
 # global section, main program
-
 # setup persistent globals before GUI
 
 suffix   = ""
@@ -4154,7 +4078,6 @@ f1 = Frame(root,bd=1)                           # band buttons
 bandbuttons(f1)
 f1.grid(row=0,columnspan=2,sticky=NSEW)
 
-
 def setoper(op):
     "set operator"
     global operator
@@ -4304,7 +4227,6 @@ root.grid_rowconfigure(3,weight=1)
 logw.tag_config("b",foreground="blue")
 logw.insert(END,"Log Window\n",("b"))
 
-
 # startup
 
 contestlog(0)                   # define globals
@@ -4338,7 +4260,6 @@ text.insert(END,"Contacts on zero power or off band do not count!!\n? for help\n
 
 text.focus()
 
-
 def showthiscall(call):
     "show the log entries for this call"
     p = call.split('/')
@@ -4359,11 +4280,9 @@ def proc_key(ch):
     "process keystroke"
     global kbuf,power,operator,logger,debug,band,node,suffix,tdwin,timeok
     testq = 0
-
     if ch == '?' and (kbuf == "" or kbuf[0] != '#'):    # ? for help
         mhelp()
         return
-
     if ch == '\r':          # return, may be cmd or log entry
 
         if kbuf[:1] == '#':
@@ -4371,11 +4290,8 @@ def proc_key(ch):
             kbuf = ""
             text.insert(END,'\n')
             return
-
         # check for valid commands
-        
         if re.match(r'[.]h$',kbuf):      # help request
-            
             m = """
     .band 160/80/40/20/15/10/6/2/220/440/900/1200/sat c/d/p
     .off               change band to off
@@ -4393,7 +4309,6 @@ def proc_key(ch):
     
     .delete <node> <seq_num> <reason>    delete log entry
             """
-
             viewtextv(m,'Command Help')
             kbuf = ""
             text.insert(END,'\n')
@@ -4623,14 +4538,10 @@ def proc_key(ch):
                 kbuf = buf
                 text.insert(END,ch)
 
-
 def kevent(event):
     "keyboard event handler"
-
 ##    print "event '%s' '%s' '%s'"%(event.type,event.keysym,event.keysym_num)
-    
     k = event.keysym_num
-    
     if k > 31 and k < 123:      # space to z
         proc_key(chr(event.keysym_num))
     elif k == 65288:            # backspace
@@ -4639,9 +4550,7 @@ def kevent(event):
         proc_key('\x1b')
     elif k == 65293:            # return
         proc_key('\r')
-
     text.see(END)               # insure that it stays in view
-
     return "break"              # prevent further processing on kbd events
 
 def focevent(e):
@@ -4883,29 +4792,19 @@ time.sleep(0.5)
 
 os._exit(1)                         # kill the process somehow?
 
-
 # this is the end of code, only comments below here
-
-
 # test procedure (draft)
-
 # test against old standard version (UDP)
 # test against self version (UDP and TCP)
-
 # test operator, logger, power, natural, band set, seeing other band
 # test qsos
 # test editing a qso
 # test filling using .testq 10 on each machine (note does bcasts so may need to shut down FDLog, do testq, start up FDLog to get fill testing)
 # test generating a report
-
 # test time sync
 #   .set tmast <node>
 
-
-
-
 # Suggestions
-
 # FD 2005 pre-meeting
 #
 #  thought - make the RCVP button bring up a description of the errors there
@@ -4939,7 +4838,6 @@ os._exit(1)                         # kill the process somehow?
 # consider band timeout - 30 minutes w/o contact releases band?
 #
 # old idea - Eric - balloon popup on band shows who is there
-
 
 # Short List
 #
@@ -5002,10 +4900,6 @@ os._exit(1)                         # kill the process somehow?
 #
 # add a comparison to previous year group scores
 
-
-
-
-
 # Code Parking
 
 ### temporary testing for the future (moved from the top)
@@ -5029,6 +4923,4 @@ os._exit(1)                         # kill the process somehow?
 ##print json.dumps((msg,msg2),separators=(',',':'))
 ##
 ##raise"quit"
-
-
 # eof
