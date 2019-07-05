@@ -2,7 +2,36 @@ Field Day Log Program Manual                         by Alan W6AKB (WB6ZQZ)
 
 is distributed under the GNU Public License
 
-fdlogman.txt: Revision: 1.20 2014
+fdlogman.txt: Revision: 1.23 2016
+
+Note that the help/Getting Started file is updated more rapidly and will
+address the most recent improvements before these Manual pages will.
+ 
+
+New for 2016
+
+Just a quick preface, lots of changes but many are not visible to users.
+However there is a very important one that is here now.
+
+Out of Order Input
+
+The first FOUR Input Elements can be in ANY ORDER
+  Call Prefix
+  Call Suffix
+  Field Day Class
+  Section (MUST be prefaced with ';' if before callsign)
+
+The comment can only be entered after all other fields:
+  Comment (always last)
+
+Complex Callsign Entries
+
+    FDLog can now accept complex callsigns - those with one or two '/'
+    characters, such as "VE7/WA6NHC or "N6OI/7 or "VE6/WB6ZQZ/MM. This also
+    includes calls with multiple digits, or calls that start with digits.
+    These calls will not DUP check at the present time, but they will
+    go in the log. To enter these special callsigns start with a double
+    quote, like "KH6/W6AKB/QRP. No closing quote is used.
 
 New for 2014
 
@@ -168,12 +197,12 @@ starting with a partial database can speed things up considerably.
 Wireless Networking
 
 There is a separate note on Wireless setup, refer to that for details. There
-are basically two modes for wireless as I understand it, one is Access point
-and the other is peer-to-peer, also referred to as ad-hoc. In the access point
-style of operation, all packets flow through the access point which is a
-gateway onto the rest of the internet. This is a great model for work or
-home. Out in the woods it also works, and is similar to repeater operation.
-It has the effect of dropping the bandwidth in half since it is a store and
+are basically two modes for wireless one is Access point and the other is
+peer-to-peer, also referred to as ad-hoc. In the access point style of
+operation, all packets flow through the access point which is a gateway
+onto the rest of the internet. This is a great model for work or home.
+Out in the woods it also works, and is similar to repeater operation.  It
+has the effect of dropping the bandwidth in half since it is a store and
 forward type repeater. In peer-to-peer operation, stations communicate
 directly in a simplex mode type operation.
 
@@ -294,11 +323,9 @@ cooperating databases.
   You can look up log info on a callsign with <call><return>. This will show
 log info for all bands/modes for this call.
 
-  An incorrectly entered Q can be deleted with the ".delete <station> 
-<sequence> <reason>" command. This command actually places a 'delete' 
-entry in the log which is used to filter clean logs. The reason is required. The
-sequence number and station are on the right hand side of the logs. If there is
-any problem with the syntax it will report 'illegal command'.
+  An incorrectly entered Q can be edited by finding it in the middle LOG
+window and clicking on it (from the node that entered it). This brings
+up a dialog that will allow edit or deletion.
 
   When taking a break in operations, set the band to 'off' with the ".off" command
 or GUI button. This makes the band available to others.
@@ -310,10 +337,12 @@ and a needs fill yellow indicator.
 
 Platform Issues
 
-  This program was developed under Windows 2k. It should mostly work on Linux,
-Unix, and Macintosh due to the portability of Python and Tkinter. There are
-some issues that will affect portability, and some functions may not work.
-For example, launching the ARRL Rules pdf file may only work on Win32.
+  This program was developed under Windows 2k and tested through Windows 10. r
+Many have used it on Linux and Macintosh and a few have run it on Unix though
+that was a long time ago. This is all due to the portability of Python and
+Tkinter. There are some issues that will affect portability, and some functions
+may not work.  For example, launching the ARRL Rules pdf file may only work on
+Win32 due to the launching functions it uses.
 
 GUI Color Code
 
@@ -388,7 +417,7 @@ dot commands are
 
 
 
-Send a Broadcast to all stations:
+Send a Broadcast QST message to all stations:
   #<message up to 34 chars>
 
 

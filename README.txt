@@ -1,8 +1,8 @@
-FDLOG = Field Day Logging Program                    3/2002 A K Biocca
+FDLOG = Field Day Logging Program                    6/2006 A K Biocca
 
 FDLOG is distributed under the GNU Public License
 
-$Revision: 1.22 $
+$Revision: 1.23 $
 
   This program is designed to support Amateur Radio Field Day Operations by 
 providing a robust multiplatform networked distributed logging database and
@@ -17,7 +17,7 @@ features, primary of which is the ability to synchronize the logfile database
 across a network in a peer to peer fashion, avoiding single points of failure. 
 The expectation is that a wireless network will be used.
 
-  To run this program you will need to install Python (or not). The
+  To run this program you will need to install Python. The
 development was done on win2k under Python 2.2-2.7 and Tkinter, but it also
 runs on Linux and the Mac with most features. Python is available
 from www.python.org. There was a directly executable version of FDLog called
@@ -43,7 +43,7 @@ this in FDLog). Then all program time clocks will track that one.
 handled by a small web server on one of the development machines. Other files 
 like Python and FD rules will be available there as well. See the Help/802.11 
 note for details. Python 2.2 to 2.7 have been used successfully with the
-software.
+software. It is NOT Python 3 compatible!
 
   Installing the FDLOG program is straightforward - all that is needed is a
 directory with the files in it. The program will create database and log files
